@@ -16,7 +16,7 @@ jobs:
     - name: Check out code into the Go module directory
       uses: actions/checkout@v2
     - name: sha
-      run: echo ${GITHUB_TOKEN }
+      run: echo ${{secrets.GITHUB_TOKEN }}
 #     - name: Build
 #       run: go build -v .
       
