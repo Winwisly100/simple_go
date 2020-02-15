@@ -15,13 +15,14 @@ jobs:
 
     - name: Check out code into the Go module directory
       uses: actions/checkout@v2
-    - name: sha
-      run: echo ${{secrets.GITHUB_TOKEN }}
-    - name: build golang
-      run: go build -o simplego .
+      
     - name: Build project # This would actually build your project, using zip for an example artifact
       run: |
-        zip --junk-paths simple simplego
+        GOOS=linux GOARCH=amd64 go build -o simple_linux .
+        GOOS=darwin GOARCH=amd64 go build -o simple_mac .
+        GOOS=windows GOARCH=amd64 go build -o simple .
+        
+        zip --junk-paths simple simple_linux simple_mac simple
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
