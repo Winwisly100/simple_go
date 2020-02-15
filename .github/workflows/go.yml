@@ -18,10 +18,10 @@ jobs:
     - name: sha
       run: echo ${{secrets.GITHUB_TOKEN }}
     - name: build golang
-      run: go build -o simple_go .
+      run: go build -o simplego .
     - name: Build project # This would actually build your project, using zip for an example artifact
       run: |
-        zip --junk-paths simple simple_go
+        zip --junk-paths simple simplego
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
