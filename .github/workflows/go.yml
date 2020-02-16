@@ -76,10 +76,7 @@ jobs:
 #         with:
 #           name: mac.zip 
       - name: list
-        run: |
-          ls
-          cd linux
-          ls
+        run: ll
 #       - name: zip
 #         run: |
 #           zip simple simple_linux
