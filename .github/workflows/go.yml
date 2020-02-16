@@ -33,18 +33,18 @@ jobs:
     - name: Build mac # This would actually build your project, using zip for an example artifact
       if: ${{matrix.os == 'macOS-latest'}} 
       run: |
-        mkdir build
         go build -o simple_mac . 
         mv simple_mac ./build
+        
     - name: "publish action-artifact zip"
       uses: actions/upload-artifact@v1
       with:
         name: mac.zip
         path: build/
-    - name: Build mac # This would actually build your project, using zip for an example artifact
+
+    - name: Build win # This would actually build your project, using zip for an example artifact
       if: ${{matrix.os == 'windows-latest' }} 
       run: |
-        mkdir build
         go build -o simple_win . 
         mv simple_win ./build
     - name: "publish action-artifact zip"
