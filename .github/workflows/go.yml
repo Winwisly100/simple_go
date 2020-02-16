@@ -8,29 +8,63 @@ jobs:
       matrix:
         os: [ubuntu-latest, windows-latest, macOS-latest]
     steps:
-
+    
     - name: Set up Go 1.13
       uses: actions/setup-go@v1
       with:
         go-version: 1.13
       id: go
-
     - name: Check out code into the Go module directory
       uses: actions/checkout@v2
       
     - name: Build linux # This would actually build your project, using zip for an example artifact
-      if: ${{matrix.os == 'ubuntu-latest'}} 
-      run: go build -o simple_linux . 
+      if: ${{matrix.os == 'ubuntu-latest'}}
+      run: |
+        mkdir build
+        go build -o simple_linux . 
+        mv simple_linux ./build
+    - name: "publish action-artifact zip"
+      uses: actions/upload-artifact@v1
+      with:
+        name: linux.zip
+        path: build/
+        
+        
     - name: Build mac # This would actually build your project, using zip for an example artifact
       if: ${{matrix.os == 'macOS-latest'}} 
-      run: go build -o simple_mac . 
+      run: |
+        mkdir build
+        go build -o simple_mac . 
+        mv simple_mac ./build
+    - name: "publish action-artifact zip"
+      uses: actions/upload-artifact@v1
+      with:
+        name: mac.zip
+        path: build/
     - name: Build mac # This would actually build your project, using zip for an example artifact
       if: ${{matrix.os == 'windows-latest' }} 
-      run: go build -o simple_win . 
+      run: |
+        mkdir build
+        go build -o simple_win . 
+        mv simple_win ./build
+    - name: "publish action-artifact zip"
+      uses: actions/upload-artifact@v1
+      with:
+        name: win.zip
+        path: build/
 #   release:
+#     needs: [build]
 #     name: Release
 #     runs-on: ubuntu-latest
 #     steps:
+#       - name: Set up Go 1.13
+#         uses: actions/setup-go@v1
+#         with:
+#           go-version: 1.13
+#         id: go
+
+#       - name: Check out code into the Go module directory
+#         uses: actions/checkout@v2
 #       - name: zip
 #         run: |
 #           zip --junk-paths simple simple_linux simple_mac simple_win
