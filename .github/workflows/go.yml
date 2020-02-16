@@ -75,11 +75,13 @@ jobs:
 #         uses: actions/download-artifact@v1
 #         with:
 #           name: mac.zip 
-      - name: list
+      - name: cd
         run: cd linux
+      - name: list
+        run: ls -la
       - name: zip
         run: |
-          zip simple simple_linux
+          zip simple linux
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
