@@ -72,7 +72,7 @@ jobs:
       - name: Download artefacts linux
         uses: actions/download-artifact@v1
         with:
-          name: linux.zip 
+          name: linux
 #       - name: Download artefacts linux
 #         uses: actions/download-artifact@v1
 #         with:
