@@ -26,7 +26,7 @@ jobs:
       if: ${{matrix.os == 'ubuntu-latest'}}  
       uses: actions/upload-artifact@v1
       with:
-        name: linux.zip
+        name: linux
         path: ./simple_linux
         
         
@@ -71,7 +71,7 @@ jobs:
       - name: Download artefacts linux
         uses: actions/download-artifact@v1
         with:
-          name: linux.zip
+          name: linux
 #       - name: Download artefacts linux
 #         uses: actions/download-artifact@v1
 #         with:
@@ -79,7 +79,9 @@ jobs:
       - name: zip
         run: |
           ls -l --block-size=M
-#          ls linux
+          ls linux
+          unzip linux
+          ls -la
 #          zip all linux/simple_linux README.md
 #       - name: Create Release
 #         id: create_release
