@@ -21,8 +21,8 @@ jobs:
     - name: Build linux # This would actually build your project, using zip for an example artifact
       if: ${{matrix.os == 'ubuntu-latest'}}  
       run: |
-        go build -o simple_linux . 
-        mv simple_linux ./build
+       go build -o simple_linux . 
+    #mv simple_linux ./build
     - name: "publish action-artifact zip"
       if: ${{matrix.os == 'ubuntu-latest'}}  
       uses: actions/upload-artifact@v1
