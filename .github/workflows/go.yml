@@ -75,13 +75,9 @@ jobs:
 #         uses: actions/download-artifact@v1
 #         with:
 #           name: mac.zip 
-      - name: cd
-        run: cd linux
-      - name: list
-        run: ls -la
-      - name: zip
-        run: |
-          zip simple linux
+#       - name: zip
+#         run: |
+#           zip simple linux
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -99,6 +95,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
-          asset_path: ./simple.zip
+          asset_path: ./linux
           asset_name: simple.zip
           asset_content_type: application/zip
