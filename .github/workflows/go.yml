@@ -78,7 +78,7 @@ jobs:
           name: mac.zip 
       - name: zip
         run: |
-          zip --junk-paths simple win.zip linux.zip mac.zip
+          zip simple win.zip linux.zip mac.zip
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
