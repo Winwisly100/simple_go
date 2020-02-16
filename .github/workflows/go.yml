@@ -1,10 +1,12 @@
 name: Go
 on: [push]
 jobs:
-
-  linux:
-    name: Build_Linux
-    runs-on: ubuntu-latest
+  build:
+    name: Build
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macOS-latest]
     steps:
 
     - name: Set up Go 1.13
@@ -16,9 +18,39 @@ jobs:
     - name: Check out code into the Go module directory
       uses: actions/checkout@v2
       
-    - name: Build project # This would actually build your project, using zip for an example artifact
-      uses: ./actions/release
-        
-
-
-
+    - name: Build linux # This would actually build your project, using zip for an example artifact
+      if: ${{matrix.os.host == 'ubuntu-latest'}} 
+      run: go build -o simple_linux . 
+    - name: Build mac # This would actually build your project, using zip for an example artifact
+      if: ${{matrix.os.host == 'macOS-latest'}} 
+      run: go build -o simple_mac . 
+    - name: Build mac # This would actually build your project, using zip for an example artifact
+      if: ${{matrix.os.host == 'windows-latest'}} 
+      run: go build -o simple_win . 
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: zip
+        run: |
+          zip --junk-paths simple simple_linux simple_mac simple_win
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref }}
+          release_name: Release ${{ github.ref }}
+          draft: false
+          prerelease: false
+      - name: Upload Release Asset
+        id: upload-release-asset 
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url`. See this blog post for more info: https://jasonet.co/posts/new-features-of-github-actions/#passing-data-to-future-steps 
+          asset_path: ./simple.zip
+          asset_name: simple.zip
+          asset_content_type: application/zip
