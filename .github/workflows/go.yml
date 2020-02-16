@@ -70,14 +70,14 @@ jobs:
       - name: Download artefacts linux
         uses: actions/download-artifact@v1
         with:
-          name: linux
+          name: linux.zip
 #       - name: Download artefacts linux
 #         uses: actions/download-artifact@v1
 #         with:
 #           name: mac.zip 
       - name: zip
         run: |
-          zip all linux README.md
+          zip all linux.zip README.md
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
