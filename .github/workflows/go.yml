@@ -26,7 +26,12 @@ jobs:
       uses: actions/upload-artifact@v1
       with:
         name: linux
-        path: ./simple_linux ./simple_mac
+        path: ./simple_linux
+    - name: "publish action-artifact zip"
+      uses: actions/upload-artifact@v1
+      with:
+        name: linux
+        path: ./simple_mac
         
         
 #     - name: Build mac # This would actually build your project, using zip for an example artifact
