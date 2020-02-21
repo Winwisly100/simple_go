@@ -20,7 +20,7 @@ jobs:
           version: latest
           args: -version
       - name: start mage
-        run: ls
+        run: which mage
 # name: Go
 # on: [push]
 # jobs:
