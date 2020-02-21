@@ -20,8 +20,8 @@ jobs:
     
     - name: Build linux # This would actually build your project, using zip for an example artifact
       run: |
-         go build -o simple_linux . 
-         go build -o simple_mac . 
+         go build -o bs_linux . 
+         go build -o bs . 
     - name: "publish action-artifact zip"
       uses: actions/upload-artifact@v1
       with:
